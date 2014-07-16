@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html ng-app="nextGiftsApp">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.2.min.css">
+	<script src="js/jquery-1.11.1.min.js"></script>
+	<script src="js/jquery.mobile-1.4.2.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/URLs.js"></script>
+	<script src="js/controllers.js"></script>
+</head>
+<body>
+	
+	<!-- Login -->
+	<div data-role="page" ng-controller="loginCtrl" id="login">
+		<div data-role="header">
+			<h1>Welcome to NextGifts</h1>
+		</div>
+		<div role="main" class="ui-content">
+			Username
+			<input type="text" ng-model="username" id="usernameL"/>
+			Password
+			<input type="password" ng-model="password" id="passwordL"/>
+			<input type="button" ng-click="signIn()" id="signInL" value="Sign in"/>
+			<input type="button" ng-click="signUp()" value="Don't have a NextGifts account? Sign up now"/>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+	
+	<!-- Register -->
+	<div data-role="page" id="register" ng-controller="registerCtrl">
+		<div data-role="header">
+			<h1>Sign up</h1>
+			<a data-icon="home" ng-click="goLogin()" class="ui-btn-right">Go login</a>
+		</div>
+		<div role="main" class="ui-content">
+			First name
+			<input type="text" ng-model="firstName" id="firstNameR"/>
+			Last names
+			<input type="text" ng-model="lastNames" id="lastNamesR"/>
+			Username
+			<input type="text" ng-model="username" id="usernameR"/>
+			password
+			<input type="password" ng-model="password" id="passwordR"/>
+			<input type="button" ng-click="signUp()" id="signUpR" value="Sign up"/>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+	
+	<!-- Home -->
+	<div data-role="page" id="home" ng-controller="homeCtrl">
+		<div data-role="panel" id="panelH" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" data-rel="close" value="Home"/>
+			<input type="button" data-icon="star" ng-click="goMyGifts()" value="My gifts"/>
+			<input type="button" data-icon="plus" ng-click="goAddGift()" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelH" data-icon="bars">Menu</a>
+			<h1>Home</h1>
+			<a data-icon="refresh" data-iconpos="notext" ng-click="refresh()" title="Refresh"></a>
+		</div>
+		<div role="main" class="ui-content">
+			<ul data-role="listview" data-split-theme="a" data-inset="true" data-split-icon="plus" id="listH" style="display: none;">
+				<li ng-repeat="gift in gifts">
+					<a ng-click="seeGift(gift.id)">
+				        <img alt="Gift" src="css/images/gift.png"/>
+				    	<h2>{{gift.name}}</h2>
+				    	<p>
+				    		<span ng-if="gift.publicHashtags">{{gift.publicHashtags}}</span>
+				    		<span ng-if="gift.mine"><strong>It's yours</strong></span>
+				    	</p>
+				    	<p ng-if="gift.anonymous" class="ui-li-aside"><strong>Anonymous</strong></p>
+				    	<p ng-if="gift.username" class="ui-li-aside"><strong>{{gift.username}}</strong></p>   	
+				    </a>
+					<a ng-if="!gift.mine && !gift.copied" ng-click="copyGift(gift.id)">Copy</a>
+				</li>
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+	
+	<!-- Add Gift -->
+	<div data-role="page" id="addGift" ng-controller="addGiftCtrl">
+		<div data-role="panel" id="panelAG" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" ng-click="goHome()" value="Home"/>
+			<input type="button" data-icon="star" ng-click="goMyGifts()" value="My gifts"/>
+			<input type="button" data-icon="plus" data-rel="close" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelAG" data-icon="bars">Menu</a>
+			<h1>Add gift</h1>
+		</div>
+		<div role="main" class="ui-content">
+			Name *
+			<input type="text" ng-model="gift.name" id="nameAG"/>
+			Description, steps to follow
+			<textarea ng-model="gift.description"></textarea>
+			URLs
+			<input type="text" ng-model="gift.urls"/>
+			Shop
+			<input type="text" ng-model="gift.shop"/>
+			Price
+			<input type="number" ng-model="gift.price"/>
+			Public Hashtags (#photo #book #original #cheap #homemade) 
+			<input type="text" ng-model="gift.publicHashtags"/>
+			Private notes
+			<textarea ng-model="gift.privateNotes"></textarea>
+			Private Hashtags (#girlfriend #christmas)
+			<input type="text" ng-model="gift.privateHashtags"/>
+			<input type="checkbox" ng-model="gift.gotIt" ng-change="changeGotIt()" id="gotItAG"/>
+			<label for="gotItAG">Have you got it?</label>
+			<input type="checkbox" ng-model="gift.delivered" ng-change="changeDelivered()" id="deliveredAG"/>
+			<label for="deliveredAG">Have you delivered it?</label>
+			<input type="checkbox" ng-model="gift.spread" id="spreadAG" ng-change="changeSpread()"/>
+			<label for="spreadAG">Do you want to spread the gift in the community? Only when the gift has been delivered</label>
+			<input type="checkbox" ng-model="gift.anonymous" id="anonymousAG" disabled/>
+			<label for="anonymousAG">Do you want to spread the gift as Anonymous?</label>
+			<input type="button" data-icon="check" ng-click="addGift()" id="addGiftAG" value="Add gift"/>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>	
+		</div>
+	</div>
+	
+	<!-- My Gifts -->
+	<div data-role="page" id="myGifts" ng-controller="myGiftsCtrl">
+		<div data-role="panel" id="panelMG" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" ng-click="goHome()" value="Home"/>
+			<input type="button" data-icon="star" data-rel="close" value="My gifts"/>
+			<input type="button" data-icon="plus" ng-click="goAddGift()" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelMG" data-icon="bars">Menu</a>
+			<h1>My gifts</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<ul data-role="listview" data-split-theme="a" data-inset="true" data-split-icon="edit" id="listMG" style="display: none;">
+				<li ng-repeat="gift in gifts">
+					<a ng-click="seeGift(gift.id)">
+				        <img alt="Gift" src="css/images/gift.png"/>
+				    	<h2>{{gift.name}}</h2>
+				    	<p ng-if="!gift.copied">It's yours</p>
+				    	<p ng-if="gift.copied">It's copied</p>
+				    	<p ng-if="!gift.gotIt && !gift.delivered" ng class="ui-li-aside"><strong>Pending to be got</strong></p>
+				    	<p ng-if="gift.gotIt && !gift.delivered" ng class="ui-li-aside"><strong>Pending to be delivered</strong></p>
+				    	<p ng-if="gift.gotIt && gift.delivered" ng class="ui-li-aside">Issue finished</p> 	
+				    </a>
+				    <a ng-click="editGift(gift.id)">Edit</a>
+				</li>
+			</ul>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+	
+	<!-- See gift -->
+	<div data-role="page" id="seeGift" ng-controller="seeGiftCtrl">
+		<div data-role="panel" id="panelSG" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" ng-click="goHome()" value="Home"/>
+			<input type="button" data-icon="star" ng-click="goMyGifts()" value="My gifts"/>
+			<input type="button" data-icon="plus" ng-click="goAddGift()" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelSG" data-icon="bars">Menu</a>
+			<h1>{{name}}</h1>
+		</div>
+		<div role="main" class="ui-content">
+			<img alt="Gift" src="css/images/gift.png"/>
+			<p ng-if="username"><strong>Author:</strong> {{username}}</p>
+			<p ng-if="!yours && anonymous"><strong>Author:</strong> Anonymous</p>
+			<p ng-if="description"><strong>Description:</strong> {{description}}</p>
+			<p ng-if="urls"><strong>URLs:</strong> {{urls}}</p>
+			<p ng-if="shop"><strong>Shop:</strong> {{shop}}</p>
+			<p ng-if="price"><strong>Price:</strong> {{price}}</p>
+			<p ng-if="publicHashtags"><strong>Public Hashtags:</strong> {{publicHashtags}}</p>
+			<div ng-if="yours">
+				<p ng-if="privateNotes"><strong>Private notes:</strong> {{privateNotes}}</p>
+				<p ng-if="privateHashtags"><strong>Private Hashtags:</strong> {{privateHashtags}}</p>
+				<p ng-if="!gotIt && !delivered"><strong>Pending to be got</strong></p>
+		    	<p ng-if="gotIt && !delivered"><strong>Pending to be delivered</strong></p>
+		    	<p ng-if="gotIt && delivered">Issue finished</p>
+		    	<p ng-if="gotIt && delivered && spread">The gift is shared with the community</p>
+		    	<p ng-if="(!gotIt || !delivered) && spread">The gift will share with the community. Only when the gift is delivered</p>
+				<p ng-if="!spread && !copied">The gift will never share with the community</p>
+				<p ng-if="copied">The gift is copied</p>
+			</div>
+			<div ng-if="!yours">
+				<p ng-if="copied">You have already got it</p>
+				<input ng-if="!copied" type="button" data-icon="plus" ng-click="copyGift()" value="Copy"/>
+			</div>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>	
+		</div>
+	</div>
+	
+	<!-- Copy gift -->
+	<div data-role="page" ng-controller="copyGiftCtrl" id="copyGift">
+		<div data-role="panel" id="panelCG" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" ng-click="goHome()" value="Home"/>
+			<input type="button" data-icon="star" ng-click="goMyGifts()" value="My gifts"/>
+			<input type="button" data-icon="plus" ng-click="goAddGift()" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelCG" data-icon="bars">Menu</a>
+			<h1>You can introduce these optional data</h1>
+			<a data-icon="back" data-iconpos="notext" ng-click="goBack()" title="Back"></a>
+		</div>
+		<div role="main" class="ui-content">
+			Private notes
+			<textarea ng-model="privateNotes"></textarea>
+			Private Hashtags (#girlfriend #christmas)
+			<input type="text" ng-model="privateHashtags"/>
+			<input type="checkbox" ng-model="gotIt" ng-change="changeGotIt()" id="gotItCG"/>
+			<label for="gotItCG">Have you got it?</label>
+			<input type="checkbox" ng-model="delivered" ng-change="changeDelivered()" id="deliveredCG"/>
+			<label for="deliveredCG">Have you delivered it?</label>
+			<input type="button" data-icon="check" ng-click="copyGift()" id="copyGiftCG" value="Copy gift"/>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+	
+	<!-- Edit gift -->
+	<div data-role="page" ng-controller="editGiftCtrl" id="editGift">
+		<div data-role="panel" id="panelEG" data-position="left" data-display="overlay" data-theme="b">
+			<input type="button" data-icon="home" ng-click="goHome()" value="Home"/>
+			<input type="button" data-icon="star" ng-click="goMyGifts()" value="My gifts"/>
+			<input type="button" data-icon="plus" ng-click="goAddGift()" value="Add gift"/>
+			<input type="button" data-icon="delete" ng-click="closeSession()" value="Close Session"/>
+			<input type="button" data-icon="minus" data-rel="close" value="Close menu"/>
+		</div>
+		<div data-role="header">
+			<a href="#panelEG" data-icon="bars">Menu</a>
+			<h1>Edit gift</h1>
+			<a data-icon="back" data-iconpos="notext" ng-click="goBack()" title="Back"></a>
+		</div>
+		<div role="main" class="ui-content">
+			Private notes
+			<textarea ng-model="privateNotes"></textarea>
+			Private Hashtags (#girlfriend #christmas)
+			<input type="text" ng-model="privateHashtags"/>
+			<input type="checkbox" ng-model="gotIt" ng-change="changeGotIt()" id="gotItEG"/>
+			<label for="gotItEG">Have you got it?</label>
+			<input type="checkbox" ng-model="delivered" ng-change="changeDelivered()" id="deliveredEG"/>
+			<label for="deliveredEG">Have you delivered it?</label>
+			<div ng-if="!copied">
+				<input type="checkbox" ng-model="spread" id="spreadEG" ng-change="changeSpread()"/>
+				<label for="spreadEG">Do you want to spread the gift in the community? Only when the gift has been delivered</label>
+				<input type="checkbox" ng-model="anonymous" id="anonymousEG" ng-change="changeAnonymous()"/>
+				<label for="anonymousEG">Do you want to spread the gift as Anonymous?</label>
+			</div>
+			<fieldset class="ui-grid-a">
+				<div class="ui-block-a"><input type="button" data-icon="delete" ng-click="deleteGift()" id="editGiftEG" value="Delete"></div>
+				<div class="ui-block-b"><input type="button" data-icon="check" ng-click="editGift()" id="deleteGiftEG" value="Edit"/></div>
+			</fieldset>
+		</div>
+		<div data-role="footer">
+			<h4>Arn&aacute;iz Company</h4>
+		</div>
+	</div>
+
+</body>
+</html>
