@@ -30,4 +30,4 @@ Futuras mejoras
 
 Uso
 ===
-Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella
+Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella, la aplicación esta subida a [OpenShift](https://www.openshift.com/ "OpenShift")
