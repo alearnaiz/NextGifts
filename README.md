@@ -1,15 +1,26 @@
 NextGifts
 =========
-Esta aplicación tiene como objetivo, ser un almacén de regalos en el cual tengas un historial de regalos antiguos y futuros, así como crear una comunidad donde podrás encontrar regalos que otras personas hayan hecho y que te puedan servir de referencia para futuros regalos que tengas pensado hacer.
+Esta aplicación tiene como objetivo, ser un almacén de regalos en el cual tengas un historial de regalos antiguos y futuros, así como crear una comunidad donde podrás encontrar regalos que otras personas hayan hecho y que te puedan servir de referencia para futuros regalos que tengas pensado hacer. Para tener información de los regalos existen campos de información adicional hashtags públicos y privados.
 
 Tecnologías usadas
 ==================
 * Backend:
 Lenguaje Java con un servidor Tomcat y uso del framework de Spring con los módulos MVC y JDBC. La base de datos es MySQL.
 
-
 * Frontend:
 Lenguaje JavaScript, HTML5 y CSS3, utilizando los siguientes frameworks: Angular.js, jQuery y jQuery Mobile.
+
+Funcionalidades
+===============
+* Registro: Crear un usuario para poder entrar en la comunidad
+ 
+* Añadir regalo: Añadir un regalo que este en la comunidad, al añadirlo podrás poder campos propios como el hashtag privado (indicando por ejemplo para quien o quienes son o para que festividad)
+
+* Crear regalo: Añadir un regalo
+
+* Ver tus regalos: Ver tus regalos añadidos o cogidos de la comunidad
+
+* Ver regalo: Ver un regalo con todos sus campos
 
 Screenshots
 ===========
