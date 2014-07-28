@@ -23,10 +23,10 @@ Screenshots
 
 Futuras mejoras
 ===============
--Insertar imágen al regalo
--Cambio de jQuery Mobile a bootstrap
--Buscador a través de nombre y hashtags
--¿Pasar de Java a Nodejs?
+* Insertar imágen al regalo
+* Cambio de jQuery Mobile a bootstrap
+* Buscador a través de nombre y hashtags
+* ¿Pasar de Java a Nodejs?
 
 Uso
 ===
