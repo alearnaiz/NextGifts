@@ -1,7 +1,9 @@
 NextGifts
 =========
-Esta aplicación tiene como objetivo, ser un almacén de regalos en el cual tengas un historial de regalos antiguos y futuros, así como crear una comunidad donde podrás encontrar regalos que otras personas hayan hecho y que te puedan servir de referencia para futuros regalos que tengas pensado hacer. Esta desarrollado en:
+Esta aplicación tiene como objetivo, ser un almacén de regalos en el cual tengas un historial de regalos antiguos y futuros, así como crear una comunidad donde podrás encontrar regalos que otras personas hayan hecho y que te puedan servir de referencia para futuros regalos que tengas pensado hacer.
 
+Tecnologías usadas
+==================
 * Backend:
 Lenguaje Java con un servidor Tomcat y uso del framework de Spring con los módulos MVC y JDBC. La base de datos es MySQL.
 
