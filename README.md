@@ -30,4 +30,4 @@ Futuras mejoras
 
 Uso
 ===
-Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella, la aplicación esta subida a un servidor Tomcat7 con una base de datos mysql 5.5 en [OpenShift](https://www.openshift.com/ "OpenShift")
+Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella, la aplicación esta subida a un servidor Tomcat7 con una base de datos MySQL 5.5 en [OpenShift](https://www.openshift.com/ "OpenShift")
