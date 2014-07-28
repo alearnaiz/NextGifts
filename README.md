@@ -15,12 +15,15 @@ Screenshots
 ===========
 
 *Página inicio*
+
 ![Alt text](/screenshots/index.png "Inicio")
 
 *Página home*
+
 ![Alt text](/screenshots/home.png "Home")
 
 *Página mis regalos*
+
 ![Alt text](/screenshots/gifts.png "Mis regalos")
 
 Futuras mejoras
