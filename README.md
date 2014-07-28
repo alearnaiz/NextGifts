@@ -3,7 +3,7 @@ NextGifts
 Esta aplicación tiene como objetivo, ser un almacén de regalos en el cual tengas un historial de regalos antiguos y futuros, así como crear una comunidad donde podrás encontrar regalos que otras personas hayan hecho y que te puedan servir de referencia para futuros regalos que tengas pensado hacer. Esta desarrollado en:
 
 * Backend:
-Lenguaje Java con un servidor Tomcat y uso del framework de Spring con los módulos MVC y JDBC.
+Lenguaje Java con un servidor Tomcat y uso del framework de Spring con los módulos MVC y JDBC. La base de datos es MySQL
 
 
 * Frontend:
@@ -30,4 +30,4 @@ Futuras mejoras
 
 Uso
 ===
-Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella, la aplicación esta subida a [OpenShift](https://www.openshift.com/ "OpenShift")
+Para ver la aplicación solo tienes que entrar en el siguiente [enlace](http://nextgifts-alearnaiz.rhcloud.com/NextGifts/ "Enlace NextGifts") y difrutar de ella, la aplicación esta subida a un servidor Tomcat7 con una base de datos mysql 5.5 en [OpenShift](https://www.openshift.com/ "OpenShift")
